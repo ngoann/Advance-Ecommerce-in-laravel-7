@@ -113,7 +113,9 @@
                                                     $org=($product->price-($product->price*$product->discount)/100);
                                                 @endphp
                                                 <p class="price"><del class="text-muted">${{number_format($product->price,2)}}</del>   ${{number_format($org,2)}}  </p>
-
+                                                <div style="color: #dc520e; font-weight: bold;">
+                                                  {{ number_format($product->point) }} POINT
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- End Single Post -->
@@ -204,6 +206,9 @@
                                                 @endphp
                                                 <span>${{number_format($after_discount,2)}}</span>
                                                 <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
+                                                <div style="color: #dc520e; font-weight: bold;">
+                                                  {{ number_format($product->point) }} POINT
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

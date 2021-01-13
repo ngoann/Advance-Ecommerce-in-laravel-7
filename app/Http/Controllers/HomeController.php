@@ -42,7 +42,7 @@ class HomeController extends Controller
     public function profileUpdate(Request $request,$id){
         // return $request->all();
         $user=User::findOrFail($id);
-        $data=$request->all();
+        $data = $request->only(['name', 'photo']);
         $status=$user->fill($data)->save();
         if($status){
             request()->session()->flash('success','Successfully updated your profile');
@@ -220,11 +220,11 @@ class HomeController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
+
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
+
         return redirect()->route('user')->with('success','Password successfully changed');
     }
 
-    
+
 }

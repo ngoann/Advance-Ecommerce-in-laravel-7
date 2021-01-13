@@ -34,7 +34,7 @@
 
         <div class="form-group">
           <label for="is_featured">Is Featured</label><br>
-          <input type="checkbox" name='is_featured' id='is_featured' value='1' checked> Yes                        
+          <input type="checkbox" name='is_featured' id='is_featured' value='1' checked> Yes
         </div>
               {{-- {{$categories}} --}}
 
@@ -59,10 +59,18 @@
         </div>
 
         <div class="form-group">
-          <label for="price" class="col-form-label">Price(NRS) <span class="text-danger">*</span></label>
+          <label for="price" class="col-form-label">Price($) <span class="text-danger">*</span></label>
           <input id="price" type="number" name="price" placeholder="Enter price"  value="{{old('price')}}" class="form-control">
           @error('price')
-          <span class="text-danger">{{$message}}</span>
+            <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="point" class="col-form-label">Price (Point) <span class="text-danger">*</span></label>
+          <input id="point" type="number" name="point" placeholder="Enter point"  value="{{old('point')}}" class="form-control">
+          @error('point')
+            <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
@@ -128,7 +136,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">

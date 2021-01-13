@@ -4,14 +4,14 @@
 
 @section('main-content')
 <div class="card">
-<h5 class="card-header">Order       <a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
+<h5 class="card-header">Order<a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
   </h5>
   <div class="card-body">
     @if($order)
     <table class="table table-striped table-hover">
       @php
           $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-      @endphp 
+      @endphp
       <thead>
         <tr>
             <th>S.N.</th>
@@ -48,12 +48,12 @@
             <td>
                 <a href="{{route('order.edit',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                 <form method="POST" action="{{route('order.destroy',[$order->id])}}">
-                  @csrf 
+                  @csrf
                   @method('delete')
                       <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                 </form>
             </td>
-          
+
         </tr>
       </tbody>
     </table>
@@ -80,13 +80,6 @@
                     <tr>
                         <td>Order Status</td>
                         <td> : {{$order->status}}</td>
-                    </tr>
-                    <tr>
-                      @php
-                          $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-                      @endphp
-                        <td>Shipping Charge</td>
-                        <td> : $ {{number_format($shipping_charge[0],2)}}</td>
                     </tr>
                     <tr>
                       <td>Coupon</td>
