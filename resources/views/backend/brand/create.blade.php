@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','NOVA MARKET || Brand Create')
+@section('title','NOVAMARKET || Brand Create')
 @section('main-content')
 
 <div class="card">

@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','NOVA MARKET || Brand Page')
+@section('title','NOVAMARKET || Brand Page')
 @section('main-content')
  <!-- DataTales Example -->
  <div class="card shadow mb-4">

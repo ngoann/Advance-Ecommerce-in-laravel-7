@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>NOVA MARKET || Login Page</title>
+  <title>NOVAMARKET || Login Page</title>
   @include('backend.layouts.head')
 
 </head>

@@ -14,7 +14,7 @@
 	<meta property="og:image" content="{{$product_detail->photo}}">
 	<meta property="og:description" content="{{$product_detail->description}}">
 @endsection
-@section('title','NOVA MARKET || PRODUCT DETAIL')
+@section('title','NOVAMARKET || PRODUCT DETAIL')
 @section('main-content')
 
 		<!-- Breadcrumbs -->

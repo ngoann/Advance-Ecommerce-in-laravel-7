@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','NOVA MARKET || HOME PAGE')
+@section('title','NOVAMARKET || HOME PAGE')
 @section('main-content')
 <!-- Slider Area -->
 <section class="hero-slider">

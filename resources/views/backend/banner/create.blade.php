@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 
-@section('title','NOVA MARKET || Banner Create')
+@section('title','NOVAMARKET || Banner Create')
 
 @section('main-content')
 

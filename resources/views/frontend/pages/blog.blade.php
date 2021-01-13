@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','NOVA MARKET || Blog Page')
+@section('title','NOVAMARKET || Blog Page')
 
 @section('main-content')
     <!-- Breadcrumbs -->

@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','NOVA MARKET || DASHBOARD')
+@section('title','NOVAMARKET || DASHBOARD')
 @section('main-content')
 <div class="container-fluid">
     @include('backend.layouts.notification')

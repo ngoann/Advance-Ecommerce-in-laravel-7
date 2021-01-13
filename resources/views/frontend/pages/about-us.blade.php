@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','NOVA MARKET || About Us')
+@section('title','NOVAMARKET || About Us')
 
 @section('main-content')
 
