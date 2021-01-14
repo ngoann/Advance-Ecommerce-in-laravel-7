@@ -16,7 +16,6 @@
             <th>Name</th>
             <th>Email</th>
             <th>Quantity</th>
-            <th>Charge</th>
             <th>Total Amount</th>
             <th>Status</th>
             <th>Action</th>
@@ -26,14 +25,19 @@
         <tr>
             @php
                 $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-            @endphp 
+            @endphp
             <td>{{$order->id}}</td>
             <td>{{$order->order_number}}</td>
             <td>{{$order->first_name}} {{$order->last_name}}</td>
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
-            <td>@foreach($shipping_charge as $data) $ {{number_format($data,2)}} @endforeach</td>
-            <td>${{number_format($order->total_amount,2)}}</td>
+            <td>
+              @if($order->payment_method=='cod')
+                ${{number_format($order->total_amount,2)}}
+              @else
+                {{ number_format($order->total_amount) }} POINT
+              @endif
+            </td>
             <td>
                 @if($order->status=='new')
                   <span class="badge badge-primary">{{$order->status}}</span>
@@ -47,12 +51,12 @@
             </td>
             <td>
                 <form method="POST" action="{{route('order.destroy',[$order->id])}}">
-                  @csrf 
+                  @csrf
                   @method('delete')
                       <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                 </form>
             </td>
-          
+
         </tr>
       </tbody>
     </table>
@@ -81,19 +85,16 @@
                         <td> : {{$order->status}}</td>
                     </tr>
                     <tr>
-                      @php
-                          $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-                      @endphp
-                        <td>Shipping Charge</td>
-                        <td> : $ {{number_format($shipping_charge[0],2)}}</td>
-                    </tr>
-                    <tr>
                         <td>Total Amount</td>
-                        <td> : $ {{number_format($order->total_amount,2)}}</td>
+                        @if($order->payment_method=='cod')
+                          <td> : $ {{number_format($order->total_amount,2)}}</td>
+                        @else
+                          <td> : {{number_format($order->total_amount)}} POINT</td>
+                        @endif
                     </tr>
                     <tr>
                       <td>Payment Method</td>
-                      <td> : @if($order->payment_method=='cod') Cash on Delivery @else Paypal @endif</td>
+                      <td> : @if($order->payment_method=='cod') Cash on Delivery @else POINT @endif</td>
                     </tr>
                     <tr>
                         <td>Payment Status</td>

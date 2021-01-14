@@ -89,9 +89,9 @@ class AdminController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
+
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
+
         return redirect()->route('admin')->with('success','Password successfully changed');
     }
 
@@ -120,21 +120,21 @@ class AdminController extends Controller
 
     public function addErrors($error_msg, $key = 'default') {
         $errors = Session::get('errors', new ViewErrorBag);
-    
+
         if (! $errors instanceof ViewErrorBag) {
             $errors = new ViewErrorBag;
         }
-    
+
         $bag = $errors->getBags()['default'] ?? new MessageBag;
         $bag->add($key, $error_msg);
-    
+
         Session::flash(
             'errors', $errors->put('default', $bag)
         );
     }
 
     public function updatePoint($id, Request $request) {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $amount = $request->amount;
         $type = $request->type;
         $wallet = $request->wallet;
