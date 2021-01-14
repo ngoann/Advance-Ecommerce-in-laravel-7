@@ -8,6 +8,9 @@ use App\User;
 use App\Rules\MatchOldPassword;
 use Hash;
 use Carbon\Carbon;
+use Illuminate\Support\ViewErrorBag;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\MessageBag;
 use Spatie\Activitylog\Models\Activity;
 class AdminController extends Controller
 {
@@ -114,4 +117,44 @@ class AdminController extends Controller
     //     $activity= Activity::all();
     //     return view('backend.layouts.activity')->with('activities',$activity);
     // }
+
+    public function addErrors($error_msg, $key = 'default') {
+        $errors = Session::get('errors', new ViewErrorBag);
+    
+        if (! $errors instanceof ViewErrorBag) {
+            $errors = new ViewErrorBag;
+        }
+    
+        $bag = $errors->getBags()['default'] ?? new MessageBag;
+        $bag->add($key, $error_msg);
+    
+        Session::flash(
+            'errors', $errors->put('default', $bag)
+        );
+    }
+
+    public function updatePoint($id, Request $request) {
+        $user = User::find($id);
+        $amount = $request->amount;
+        $type = $request->type;
+        $wallet = $request->wallet;
+
+        if ($type == 'subtract') {
+            if ($wallet == 'point') {
+                if ($user->point < $amount) {
+                    $this->addErrors('Your POINT is not enough', 'amount');
+                    return redirect()->back();
+                }
+                $user->point -= $amount;
+                $user->save();
+                return redirect()->back()->with('message', 'Your point have been updated');
+            }
+        } else {
+            if ($wallet == 'point') {
+                $user->point += $amount;
+                $user->save();
+                return redirect()->back()->with('message', 'Your point have been updated');
+            }
+        }
+    }
 }

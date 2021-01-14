@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -101,6 +102,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     })->name('file-manager');
     // user route
     Route::resource('users','UsersController');
+    Route::post('/users/update-point/{id}', 'AdminController@updatePoint')->name('users.update-point');
     // Banner
     Route::resource('banner','BannerController');
     // Brand

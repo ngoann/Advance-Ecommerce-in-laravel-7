@@ -33,7 +33,13 @@
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
             <td>@foreach($shipping_charge as $data) $ {{number_format($data,2)}} @endforeach</td>
-            <td>${{number_format($order->total_amount,2)}}</td>
+            <td>
+             @if($order->payment_method == 'cod')
+                ${{number_format($order->total_amount,2)}}
+              @elseif ($order->payment_method == 'point')
+                {{number_format($order->total_amount,2)}} POINT
+              @endif
+            </td>
             <td>
                 @if($order->status=='new')
                   <span class="badge badge-primary">{{$order->status}}</span>
@@ -87,7 +93,13 @@
                     </tr>
                     <tr>
                         <td>Total Amount</td>
-                        <td> : $ {{number_format($order->total_amount,2)}}</td>
+                        <td>
+                          : @if($order->payment_method == 'cod')
+                            ${{number_format($order->total_amount,2)}}
+                          @elseif ($order->payment_method == 'point')
+                            {{number_format($order->total_amount,2)}} POINT
+                          @endif
+                        </td>
                     </tr>
                     <tr>
                         <td>Payment Method</td>

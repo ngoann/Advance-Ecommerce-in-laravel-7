@@ -118,8 +118,17 @@ class OrderController extends Controller
         }
         // return $order_data['total_amount'];
         $order_data['status']="new";
-        if(request('payment_method')=='paypal'){
-            $order_data['payment_method']='paypal';
+        if(request('payment_method')=='point'){
+            $currentUser = $request->user();
+            if ($currentUser->point > Helper::totalCartPoint()) {
+                $currentUser->point -= Helper::totalCartPoint();
+                $currentUser->save();
+            } else {
+                request()->session()->flash('error','Your POINT is not enough for order');
+                return redirect()->route('checkout');
+            }
+            $order_data['total_amount'] = Helper::totalCartPoint();
+            $order_data['payment_method']='point';
             $order_data['payment_status']='paid';
         }
         else{
@@ -137,13 +146,13 @@ class OrderController extends Controller
             'fas'=>'fa-file-alt'
         ];
         Notification::send($users, new StatusNotification($details));
-        if(request('payment_method')=='paypal'){
-            return redirect()->route('payment')->with(['id'=>$order->id]);
-        }
-        else{
+        // if(request('payment_method')=='point'){
+        //     return redirect()->route('payment')->with(['id'=>$order->id]);
+        // }
+        // else{
             session()->forget('cart');
             session()->forget('coupon');
-        }
+        // }
         Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
 
         // dd($users);
